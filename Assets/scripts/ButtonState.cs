@@ -13,6 +13,10 @@ public class ButtonState : MonoBehaviour
     [Header("Icons")]
     [SerializeField] GameObject MapIcon;
     [SerializeField] GameObject QrIcon;
+    [Header("Map/Qr")]
+    [SerializeField] GameObject MapWindow;
+    [SerializeField] GameObject QrWindow;
+
     bool MapActive;
     void Start()
     {
@@ -21,6 +25,9 @@ public class ButtonState : MonoBehaviour
         ImgQr.material = InactiveMat;
         MapIcon.transform.localScale = new Vector2(1.76f, 1.76f);
         QrIcon.transform.localScale = new Vector2(0.6f, 0.6f);
+        QrWindow.SetActive(false);
+        MapWindow.SetActive(true);
+
     }
     ///////////////// Functions for the Btn's///////////////////////////
     public void ChangeStateMap()
@@ -30,6 +37,8 @@ public class ButtonState : MonoBehaviour
         ImgQr.material = InactiveMat;
         MapIcon.transform.localScale = new Vector2(1.76f, 1.76f);
         QrIcon.transform.localScale = new Vector2(0.6f, 0.6f);
+        QrWindow.SetActive(false);
+        MapWindow.SetActive(true);
     }
     public void ChangeStateQr()
     {
@@ -38,6 +47,8 @@ public class ButtonState : MonoBehaviour
         ImgQr.material = ActiveMat;
         MapIcon.transform.localScale = new Vector2(1, 1);
         QrIcon.transform.localScale = new Vector2(1, 1);
+        QrWindow.SetActive(true);
+        MapWindow.SetActive(false);
     }
     
 
