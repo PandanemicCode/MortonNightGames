@@ -1,32 +1,33 @@
-using System.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ButtonState : MonoBehaviour
 {
     [Header("Images")]
-    [SerializeField] Image ImgQr;
-    [SerializeField] Image ImgMap;
-    
+    [SerializeField] private Image ImgQr;
+    [SerializeField] private Image ImgMap;
+
     [Header("Materials")]
-    [SerializeField] Material ActiveMat;
-    [SerializeField] Material InactiveMat;
+    [SerializeField] private Material ActiveMat;
+    [SerializeField] private Material InactiveMat;
 
     [Header("Icons")]
-    [SerializeField] GameObject MapIcon;
-    [SerializeField] GameObject QrIcon;
+    [SerializeField] private GameObject MapIcon;
+    [SerializeField] private GameObject QrIcon;
 
-    [Header("Map/Qr")]
-    [SerializeField] GameObject MapWindow;
-    [SerializeField] GameObject QrWindow;
+    [Header("Map / QR Windows")]
+    [SerializeField] private GameObject MapWindow;
+    [SerializeField] private GameObject QrWindow;
 
-    [Header("QR Scanner")]
-    [SerializeField] QrScanner qrScanner; // Reference to your QrScanner script
+    [Header("QR Scanner Reference")]
+    [Tooltip("Drag your QrScanner GameObject here")]
+    [SerializeField] public QrScanner qrScanner;
 
-    bool MapActive;
+    private bool MapActive;
 
     void Start()
     {
+        // By default, we start showing the Map
         MapActive = true;
         ImgMap.material = ActiveMat;
         ImgQr.material = InactiveMat;
@@ -48,7 +49,8 @@ public class ButtonState : MonoBehaviour
             QrWindow.SetActive(false);
             MapWindow.SetActive(true);
 
-            qrScanner?.StopQR(); // Stop camera when switching out of QR mode
+            // If the camera was running, stop it
+            qrScanner?.StopQR();
         }
     }
 
@@ -64,7 +66,8 @@ public class ButtonState : MonoBehaviour
             QrWindow.SetActive(true);
             MapWindow.SetActive(false);
 
-            qrScanner?.StartQR(); // Start camera when entering QR mode
+            // Start the camera when entering QR mode
+            qrScanner?.StartQR();
         }
     }
 }

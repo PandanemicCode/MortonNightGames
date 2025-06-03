@@ -4093,6 +4093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camDisplay: {fileID: 1125551741}
+  buttonState: {fileID: 1994676200}
   stations:
   - {fileID: 1116258667}
   - {fileID: 35765569}
@@ -4100,6 +4101,13 @@ MonoBehaviour:
   - {fileID: 983619210}
   - {fileID: 664661225}
   - {fileID: 631153545}
+  baseOrder:
+  - station_01
+  - station_02
+  - station_03
+  - station_04
+  - station_05
+  - station_06
   teamID: 0
 --- !u!114 &1994676203
 MonoBehaviour:
@@ -4118,6 +4126,7 @@ MonoBehaviour:
   Group: {fileID: 1758934407}
   GroupDropdown: {fileID: 214948746}
   Button: {fileID: 1094540513}
+  stations: []
   qrScanner: {fileID: 1994676202}
 --- !u!1 &2044426134
 GameObject:

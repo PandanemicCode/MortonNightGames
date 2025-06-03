@@ -9,29 +9,35 @@ public class UIManager : MonoBehaviour
     public TMP_Dropdown GroupDropdown;
     public GameObject Button;
 
-    public QrScanner qrScanner;
+    [Tooltip("Stations or other objects you might activate later")]
+    public GameObject[] stations;
 
-    //functions
+    [Header("References")]
+    [SerializeField] private QrScanner qrScanner; // Drag your QrScanner here
+
     void GroupSelection()
-{
-    int teamId = GroupDropdown.value;
-    Debug.Log("Selected Group: " + teamId);
+    {
+        int selectedIndex = GroupDropdown.value;
+        Debug.Log("Group selection changed to: " + selectedIndex);
 
-    // Set team in QR scanner
-    qrScanner.teamID = teamId;
-    qrScanner.SetTeamOrder(); // You may need to make this public in QrScanner
-}
-
+        // If you want to pass to QrScanner later:
+        // qrScanner.teamID = selectedIndex;
+        // qrScanner.SetTeamOrder();
+    }
 
     public void setDisapearSelection()
     {
-        GroupSelection(); // <-- Call this first
-        
+        // 1) Select team
+        int selectedIndex = GroupDropdown.value;
+        Group.text = GroupDropdown.options[selectedIndex].text;
+
+        // 2) Pass to QrScanner
+        qrScanner.teamID = selectedIndex;
+        qrScanner.SetTeamOrder();
+
+        // 3) Hide selection UI
         Button.SetActive(false);
         GroupDropdown.gameObject.SetActive(false);
         Group.gameObject.SetActive(true);
-        Group.text = GroupDropdown.options[GroupDropdown.value].text;
     }
-
-    
 }
