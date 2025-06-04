@@ -133,21 +133,28 @@ public class QrScanner : MonoBehaviour
         {
             Debug.Log($"✅ QR Match for step {currentStep + 1}: {code}");
 
-            // Find index of this QR string in baseOrder so we know which station to activate
+            // 1) Determine which station corresponds to this QR string
             int stationIndex = Array.IndexOf(baseOrder, code);
-            if (stationIndex >= 0 && stationIndex < stations.Length)
+            if (stationIndex < 0 || stationIndex >= stations.Length)
             {
-                stations[stationIndex].SetActive(true);
-                Debug.Log($"Activated station GameObject: {stations[stationIndex].name}");
+                Debug.LogWarning($"[QrScanner] No station found for QR string \"{code}\".");
             }
             else
             {
-                Debug.LogWarning($"[QrScanner] No station found for QR string \"{code}\".");
+                // 2) Disable all stations first
+                for (int i = 0; i < stations.Length; i++)
+                {
+                    stations[i].SetActive(false);
+                }
+
+                // 3) Enable only the current station
+                stations[stationIndex].SetActive(true);
+                Debug.Log($"Activated station GameObject: {stations[stationIndex].name}");
             }
 
             currentStep++;
 
-            // Stop camera and switch back to map
+            // 4) Stop the camera and switch back to map
             StopQR();
             buttonState?.ChangeStateMap();
         }
