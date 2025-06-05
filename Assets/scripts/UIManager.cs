@@ -5,13 +5,11 @@ public class UIManager : MonoBehaviour
 {
     [Header("UI Elements")]
     public TMP_Text Timer;           // Assign your TextMeshPro text here
-    public TMP_Text Views;
+    public TMP_Text ViewsTMP;
+    public int ViewCount;
     public TMP_Text Group;
     public TMP_Dropdown GroupDropdown;
-    public GameObject Button;
-
-    [Header("Stations or other objects you might activate later")]
-    public GameObject[] stations;
+    public GameObject Panel;
 
     [Header("References")]
     [SerializeField] private QrScanner qrScanner; // Drag your QrScanner here
@@ -19,9 +17,9 @@ public class UIManager : MonoBehaviour
     [Header("Timer Settings")]
     [Tooltip("Duration in seconds (e.g., 3600 = 1 hour).")]
     public float totalTime = 3600f;
-
     private float currentTime;
     private bool isTimerRunning = false;
+    int viewValues = 0;
 
     void Update()
     {
@@ -61,19 +59,15 @@ public class UIManager : MonoBehaviour
         qrScanner.SetTeamOrder();
 
         // 3) Hide selection UI
-        Button.SetActive(false);
-        GroupDropdown.gameObject.SetActive(false);
+        Panel.SetActive(false);
         Group.gameObject.SetActive(true);
 
         // 4) Start timer
         StartTimer();
-
-        // 5) Start the QR camera
-       // qrScanner.StartQR();
     }
 
     #endregion
-
+    #region Timer
     public void StartTimer()
     {
         currentTime = totalTime;
@@ -92,4 +86,6 @@ public class UIManager : MonoBehaviour
         int hours = Mathf.FloorToInt(totalTime / 3600);
         Timer.text = $"{hours:00}:00:00";
     }
+    #endregion
+   
 }

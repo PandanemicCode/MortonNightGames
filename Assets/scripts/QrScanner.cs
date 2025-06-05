@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using ZXing;
@@ -31,6 +32,8 @@ public class QrScanner : MonoBehaviour
     private bool isCameraRunning = false;
     private float scanInterval = 1.0f;
     private float scanTimer = 0f;
+
+    [SerializeField] UIManager uIManager;
 
     void Awake()
     {
@@ -156,6 +159,8 @@ public class QrScanner : MonoBehaviour
 
             // 4) Stop the camera and switch back to map
             StopQR();
+            //5) update view score
+                ViewsUpdate();
             buttonState?.ChangeStateMap();
         }
         else
@@ -201,5 +206,15 @@ public class QrScanner : MonoBehaviour
             float width = camDisplay.rectTransform.rect.height * videoRatio;
             camDisplay.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, width);
         }
+    }
+
+    //Ui Updater
+
+    void ViewsUpdate()
+    {
+        int score = uIManager.ViewCount;
+        score += 500;
+        uIManager.ViewCount = score;
+        uIManager.ViewsTMP.text = score.ToString();
     }
 }
