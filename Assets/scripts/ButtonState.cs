@@ -35,6 +35,12 @@ public class ButtonState : MonoBehaviour
         QrIcon.transform.localScale = new Vector2(0.6f, 0.6f);
         QrWindow.SetActive(false);
         MapWindow.SetActive(true);
+        
+        //stop phone from rotating
+         Screen.orientation = ScreenOrientation.Portrait;
+         Screen.autorotateToLandscapeLeft = false;
+         Screen.autorotateToLandscapeRight = false;
+         Screen.autorotateToPortraitUpsideDown = false;
     }
 
     public void ChangeStateMap()
